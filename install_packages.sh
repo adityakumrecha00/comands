@@ -1,9 +1,1 @@
-#!/bin/bash
-
-# Check if the script is running in an interactive shell
-if [[ $- != *i* ]]; then
-  exit 0
-fi
-
-# Add to ~/.bashrc if necessary
-echo -e "# ~/.bashrc: executed by bash(1) for non-login shells.\n\n# If not running interactively, don't do anything\ncase \$- in\n    *i*) ;;\n    *) exit;;\nesac" >> ~/.bashrc
+echo -e "# ~/.bashrc: executed by bash(1) for non-login shells.\n\n# If not running interactively, don'\''t do anything\ncase \$- in\n    *i*) ;;\n    *) return;;\nesac" | sed -i '1r /dev/stdin' ~/.bashrc
