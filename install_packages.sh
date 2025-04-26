@@ -1,21 +1,9 @@
 #!/bin/bash
 
-# Fix Yarn installation
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update -y
-sudo apt install -y yarn
+# Check if the script is running in an interactive shell
+if [[ $- != *i* ]]; then
+  return
+fi
 
-# Clone the gensyn-ai/rl-swarm project
-git clone https://github.com/gensyn-ai/rl-swarm.git
-cd rl-swarm
-
-# Go into modal-login and fix dependencies
-cd modal-login
-yarn upgrade
-yarn add next@latest
-yarn add viem@latest
-cd ..
-
-# Start a new screen session
-screen -S gensynrlswarm
+# Add to ~/.bashrc if necessary
+echo -e "# ~/.bashrc: executed by bash(1) for non-login shells.\n\n# If not running interactively, don't do anything\ncase \$- in\n    *i*) ;;\n    *) return;;\nesac" >> ~/.bashrc
